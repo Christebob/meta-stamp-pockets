@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Rich black background -->
+  <rect width="64" height="64" rx="12" fill="#0a0a0a"/>
+  
+  <!-- Outer glow ring — gold/orange -->
+  <rect x="3" y="3" width="58" height="58" rx="10" fill="none" stroke="#FF6B00" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Pocket body — filled orange -->
+  <path d="M13 24 Q13 19 18 19 L46 19 Q51 19 51 24 L51 46 Q51 51 46 51 L18 51 Q13 51 13 46 Z" fill="#FF6B00"/>
+  
+  <!-- Pocket flap shadow/depth -->
+  <path d="M13 30 L51 30" stroke="#0a0a0a" stroke-width="2.5"/>
+  
+  <!-- Bold P lettermark — black on orange -->
+  <text x="32" y="49" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="24" fill="#0a0a0a">P</text>
+  
+  <!-- Top accent — small gold coin dot -->
+  <circle cx="32" cy="24" r="4" fill="#0a0a0a"/>
+  <circle cx="32" cy="24" r="2.5" fill="#FF6B00"/>
+  <circle cx="32" cy="24" r="1.2" fill="#0a0a0a"/>
+</svg>
