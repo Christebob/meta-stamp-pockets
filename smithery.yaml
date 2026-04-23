@@ -1,3 +1,11 @@
+name: Meta-Stamp Pockets
+description: >
+  Meta-Stamp Pockets — Licensed creator content for AI agents. Tiered per-pull
+  pricing: $0.001 (generic/blogs), $0.01 (premium creator — YouTube, Substack),
+  $0.025 (flagship creators), $0.10–$0.25 (verifiable institutional — news, legal,
+  scientific). Annual enterprise licensing also available. 85% of revenue goes
+  directly to creators. Provenance-verified content from authorized creators.
+
 startCommand:
   type: http
   configSchema:

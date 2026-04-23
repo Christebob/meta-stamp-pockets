@@ -1,6 +1,6 @@
 {
   "name": "Meta-Stamp Pockets",
-  "description": "The first commercial implementation of HTTP 402 Payment Required for creator content monetization. AI agents pay $0.0025 per content pull from paywalled creator libraries. Patent-pending micropayment infrastructure that automatically compensates creators.",
+  "description": "Meta-Stamp Pockets — Licensed creator content for AI agents. Tiered per-pull pricing: $0.001 (generic/blogs), $0.01 (premium creator — YouTube, Substack), $0.025 (flagship creators), $0.10–$0.25 (verifiable institutional — news, legal, scientific). Annual enterprise licensing also available. 85% of revenue goes directly to creators. Provenance-verified content from authorized creators.",
   "version": "1.0.0",
   "server": {
     "type": "http",
@@ -13,15 +13,15 @@
   "tools": [
     {
       "name": "pull_content",
-      "description": "Pull licensed creator content from a Pocket. Returns title, transcript, metadata. Costs $0.0025 per pull credited to creator."
+      "description": "Pull pre-indexed, licensed content from a Pocket. Returns structured content (text, metadata, provenance signature) in <30ms. Tiered pricing from $0.001–$0.25 per pull based on content type. Creator is compensated automatically on every retrieval."
     },
     {
       "name": "search_pockets",
-      "description": "Search available creator content libraries by keyword."
+      "description": "Search for available Pockets by keyword. Returns matching Pockets with metadata (title, content type, creator, description, pricing tier)."
     },
     {
       "name": "list_pockets",
-      "description": "List all available Pockets in the system."
+      "description": "List all available Pockets, optionally filtered by creator. Returns Pocket metadata without content."
     }
   ],
   "links": {
