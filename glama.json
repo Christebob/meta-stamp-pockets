@@ -1,0 +1,11 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": ["Christebob"],
+  "name": "meta-stamp-pockets",
+  "description": "Licensed creator content infrastructure for AI agents. Tiered per-pull pricing from $0.001 to $0.25 based on content type. 85% of revenue goes directly to creators. Provenance-verified content from authorized creators.",
+  "type": "mcp_server",
+  "status": "stable",
+  "framework": "FastMCP",
+  "transport": ["sse"],
+  "keywords": ["creator-economy", "content-licensing", "provenance", "http-402", "ai-training-data", "creator-compensation"]
+}

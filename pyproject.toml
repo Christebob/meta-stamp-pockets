@@ -1,0 +1,248 @@
+# META-STAMP V3 Backend - Poetry Project Configuration
+# =====================================================
+# This file defines the project metadata, dependencies, build system,
+# and tool configurations for the META-STAMP V3 backend service.
+#
+# Usage:
+#   poetry install          - Install all dependencies
+#   poetry install --with dev - Install with dev dependencies
+#   poetry run uvicorn app.main:app --reload  - Run development server
+#   poetry run pytest       - Run tests
+#   poetry run black .      - Format code
+#   poetry run ruff check . - Lint code
+
+[tool.poetry]
+name = "meta-stamp-v3-backend"
+version = "1.0.0"
+description = "META-STAMP V3: Global compensation foundation between AI companies and creators"
+authors = ["Meta-Stamp Team"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+# Python version constraint - MANDATORY per Agent Action Plan section 0.3
+python = "^3.11"
+
+# Web Framework and Server
+fastapi = "^0.122.0"
+uvicorn = {extras = ["standard"], version = "^0.38.0"}
+
+# Data Validation and Settings
+pydantic = "^2.12.4"
+pydantic-settings = "^2.12.0"
+
+# Database - MongoDB async driver
+motor = "^3.7.1"
+
+# Caching - Redis async client
+redis = "^7.1.0"
+
+# S3-Compatible Object Storage
+boto3 = "^1.41.4"
+
+# Authentication and Security
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+# Pin bcrypt to 4.3.0 due to compatibility issue with passlib 1.7.4
+# See: https://github.com/pyca/bcrypt/issues/1079
+bcrypt = "^4.3.0,<5.0.0"
+
+# LangChain AI Framework with Multi-Provider Support
+# MANDATORY: OpenAI GPT-4/5, Anthropic Claude, Google Gemini support per section 0.3
+langchain = "^1.1.0"
+langchain-openai = "^1.1.0"
+langchain-anthropic = "^1.2.0"
+langchain-google-genai = "^3.2.0"
+
+# Image Processing and Fingerprinting
+pillow = "^12.0.0"
+imagehash = "^4.3.2"
+
+# Audio Processing and Fingerprinting
+librosa = "^0.11.0"
+
+# Video Processing (headless - no GUI dependencies)
+opencv-python-headless = "^4.12.0"
+
+# HTTP Client and Web Scraping
+requests = "^2.32.5"
+beautifulsoup4 = "^4.12.3"
+lxml = "^5.1.0"
+
+# YouTube Integration
+youtube-transcript-api = "^0.6.1"
+google-api-python-client = "^2.156.0"
+google-auth-oauthlib = "^1.2.0"
+
+# Email validation (required by pydantic for email fields)
+email-validator = "^2.2.0"
+
+# Character encoding detection
+chardet = "^5.2.0"
+
+# File type detection
+python-magic = "^0.4.27"
+
+# PDF processing
+PyPDF2 = "^3.0.0"
+
+# Stripe Connect for creator payouts
+stripe = "^11.0.0"
+
+# Async File I/O
+aiofiles = "^25.1.0"
+
+# File Upload Handling
+python-multipart = "^0.0.20"
+
+# Configuration File Parsing
+pyyaml = "^6.0.3"
+
+[tool.poetry.group.dev.dependencies]
+# Testing Framework
+pytest = "^9.0.1"
+pytest-asyncio = "^1.3.0"
+pytest-cov = "^7.0.0"
+httpx = "^0.28.1"
+
+# Code Formatting - Black formatter (MANDATORY per section 0.10)
+black = "^25.11.0"
+
+# Linting - Ruff linter (MANDATORY per section 0.10)
+ruff = "^0.14.6"
+
+# Static Type Checking
+mypy = "^1.18.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# =============================================================================
+# Tool Configurations
+# =============================================================================
+
+# Black Formatter Configuration
+# Per Agent Action Plan section 0.10: line length 100, Python 3.11 target
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.venv
+    | build
+    | dist
+    | __pycache__
+    | \.git
+    | \.pytest_cache
+    | \.mypy_cache
+)/
+'''
+
+# Ruff Linter Configuration
+# Per Agent Action Plan section 0.10: select E, F, I rules
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+# Exclude directories from linting
+exclude = [
+    ".venv",
+    "build",
+    "dist",
+    "migrations",
+    "__pycache__",
+    ".git",
+    ".pytest_cache",
+    ".mypy_cache",
+]
+
+# Fix auto-fixable issues when running ruff check --fix
+fix = true
+
+[tool.ruff.lint]
+# Select rule categories:
+# E = pycodestyle errors
+# F = Pyflakes
+# I = isort
+# W = pycodestyle warnings
+# B = flake8-bugbear
+# UP = pyupgrade
+select = ["E", "F", "I", "W", "B", "UP"]
+
+# Rules to ignore (none by default for strict compliance)
+ignore = []
+
+[tool.ruff.lint.isort]
+# Configure import sorting
+known-first-party = ["app"]
+force-single-line = false
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+# Allow unused imports in __init__.py files (common pattern for re-exports)
+"__init__.py" = ["F401"]
+# Allow assert statements in tests
+"tests/**/*.py" = ["B011"]
+
+# Pytest Configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+# MyPy Static Type Checking Configuration
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+ignore_missing_imports = true
+exclude = [
+    "build",
+    "dist",
+    ".venv",
+    "tests",
+]
+
+# Coverage Configuration
+[tool.coverage.run]
+source = ["app"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/migrations/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+fail_under = 80
+show_missing = true

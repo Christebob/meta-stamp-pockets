@@ -1,0 +1,422 @@
+# META-STAMP V3 Backend - Ruff Linter Configuration
+# =====================================================
+# This configuration enforces consistent Python code quality standards
+# across the backend codebase. It works in conjunction with Black formatter.
+#
+# Usage:
+#   ruff check .              # Check for issues
+#   ruff check . --fix        # Auto-fix issues where possible
+#   ruff format .             # Format code (alternative to Black)
+#
+# Documentation: https://docs.astral.sh/ruff/
+
+# =============================================================================
+# GLOBAL SETTINGS
+# =============================================================================
+
+# Line length must match Black formatter configuration for consistency
+line-length = 100
+
+# Target Python 3.11+ as specified in Agent Action Plan section 0.3
+# This enables Python 3.11+ specific linting rules and syntax checks
+target-version = "py311"
+
+# =============================================================================
+# FILE EXCLUSIONS
+# =============================================================================
+
+# Exclude paths from linting to avoid analyzing generated code,
+# dependencies, and build artifacts
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "__pycache__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "migrations",
+    "node_modules",
+    "site-packages",
+    "venv",
+    "*.egg-info",
+]
+
+# =============================================================================
+# LINT CONFIGURATION
+# =============================================================================
+
+[lint]
+# Selected rule sets for comprehensive code quality enforcement
+# Each rule category serves a specific purpose in maintaining code standards
+select = [
+    # Core Python linting rules
+    "E",      # pycodestyle errors (PEP 8 style guide violations)
+    "F",      # Pyflakes (logical errors, undefined names, unused imports)
+    "W",      # pycodestyle warnings (additional style issues)
+    
+    # Import organization and management
+    "I",      # isort (import sorting and organization)
+    
+    # Naming conventions
+    "N",      # pep8-naming (class, function, variable naming conventions)
+    
+    # Python version upgrades
+    "UP",     # pyupgrade (modernize Python syntax to target version)
+    
+    # Bug detection and prevention
+    "B",      # flake8-bugbear (common bug patterns and design issues)
+    "A",      # flake8-builtins (prevent shadowing Python builtins)
+    "C4",     # flake8-comprehensions (simplify list/dict/set comprehensions)
+    
+    # Date and time handling
+    "DTZ",    # flake8-datetimez (enforce timezone-aware datetime usage)
+    
+    # Debugging
+    "T10",    # flake8-debugger (detect debugger imports like pdb)
+    
+    # Django-specific (useful for any web framework patterns)
+    "DJ",     # flake8-django (Django best practices)
+    
+    # Exception handling
+    "EM",     # flake8-errmsg (exception message best practices)
+    "TRY",    # tryceratops (exception handling anti-patterns)
+    
+    # String handling
+    "ISC",    # flake8-implicit-str-concat (implicit string concatenation)
+    "Q",      # flake8-quotes (consistent quote style)
+    
+    # Import conventions
+    "ICN",    # flake8-import-conventions (import alias conventions)
+    
+    # Code simplification
+    "PIE",    # flake8-pie (misc linting rules for cleaner code)
+    "SIM",    # flake8-simplify (simplify complex code patterns)
+    
+    # Testing
+    "PT",     # flake8-pytest-style (pytest best practices)
+    
+    # Return statements
+    "RSE",    # flake8-raise (raise statement improvements)
+    "RET",    # flake8-return (return statement consistency)
+    
+    # Type checking and annotations
+    "TID",    # flake8-tidy-imports (banned imports and relative imports)
+    "ARG",    # flake8-unused-arguments (detect unused function arguments)
+    "PTH",    # flake8-use-pathlib (prefer pathlib over os.path)
+    
+    # Data science and numerical (for fingerprinting/ML code)
+    "PD",     # pandas-vet (pandas-specific best practices)
+    "NPY",    # NumPy-specific rules (numpy best practices)
+    
+    # General code quality
+    "PGH",    # pygrep-hooks (misc code quality checks)
+    "PL",     # Pylint (comprehensive static analysis subset)
+    
+    # Ruff-specific rules
+    "RUF",    # Ruff-specific rules (additional quality checks)
+]
+
+# Ignored rules that conflict with project patterns or are handled elsewhere
+ignore = [
+    # E501: Line too long
+    # Reason: Black formatter handles line length enforcement more intelligently
+    # with proper wrapping. Letting Ruff check this causes duplicate/conflicting errors.
+    "E501",
+    
+    # B008: Do not perform function calls in argument defaults
+    # Reason: FastAPI's Depends() pattern requires function calls in defaults
+    # Example: def route(db: Session = Depends(get_db))
+    # This is a core FastAPI pattern and cannot be avoided
+    "B008",
+    
+    # PLR0913: Too many arguments to function call
+    # Reason: Service methods often require many parameters for flexibility
+    # and dependency injection. Limiting arguments would harm code organization.
+    "PLR0913",
+    
+    # PLR0911: Too many return statements
+    # Reason: Validation functions use early-return pattern for cleaner code
+    # with one validation check per return. This is more readable than complex
+    # nested conditionals or exception-based validation.
+    "PLR0911",
+    
+    # TRY003: Avoid specifying long messages outside the exception class
+    # Reason: We prefer descriptive error messages at the raise site for clarity
+    "TRY003",
+    
+    # EM101: Exception must not use a string literal, assign to variable first
+    # Reason: Direct string literals in exceptions improve code readability
+    "EM101",
+    
+    # EM102: Exception must not use an f-string literal
+    # Reason: f-strings in exceptions are clear and Pythonic
+    "EM102",
+    
+    # TRY300: Consider moving this statement to an `else` block
+    # Reason: While moving return to else is cleaner, it's a stylistic preference
+    # The current pattern (return after try success) is clear and well-understood
+    "TRY300",
+    
+    # TRY301: Abstract `raise` to an inner function
+    # Reason: Direct raise statements in validation blocks are more readable
+    # than abstracting to inner functions for simple validation patterns
+    "TRY301",
+]
+
+# Allow autofix for all enabled rules (when `--fix` is provided)
+# Use with caution in CI - review changes before committing
+fixable = ["ALL"]
+
+# Disallow autofix for potentially dangerous rules
+unfixable = []
+
+# Allow unused variables when underscore-prefixed (Python convention)
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# =============================================================================
+# IMPORT SORTING (isort) CONFIGURATION
+# =============================================================================
+
+[lint.isort]
+# Define first-party packages for proper import grouping
+# This ensures imports from our 'app' package are grouped correctly
+known-first-party = ["app"]
+
+# Section ordering follows the standard convention:
+# 1. __future__ imports (for Python 2/3 compatibility - rarely used in 3.11+)
+# 2. Standard library imports (os, sys, datetime, etc.)
+# 3. Third-party imports (fastapi, pydantic, motor, etc.)
+# 4. First-party imports (from app.* modules)
+# 5. Local folder imports (relative imports within same package)
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+# Force single line imports for cleaner diffs and easier reading
+force-single-line = false
+
+# Combine as imports onto the same line
+combine-as-imports = true
+
+# Split imports from a single module onto separate lines if they exceed line length
+split-on-trailing-comma = true
+
+# Number of lines to separate import sections
+lines-after-imports = 2
+lines-between-types = 1
+
+# =============================================================================
+# PER-FILE IGNORES
+# =============================================================================
+
+[lint.per-file-ignores]
+# Test files have different requirements than production code
+# These ignores allow common testing patterns without linting errors
+"tests/*.py" = [
+    # S101: Use of assert detected
+    # Reason: Assert statements are the standard way to write pytest tests
+    # They are perfectly acceptable and expected in test files
+    "S101",
+    
+    # PLR2004: Magic value used in comparison
+    # Reason: Test assertions often use literal values for clarity
+    # Example: assert result == 42 is clearer than assert result == EXPECTED_VALUE
+    "PLR2004",
+    
+    # ARG001: Unused function argument
+    # Reason: Pytest fixtures are passed as arguments but may not be used directly
+    # The fixture's side effects (setup/teardown) are the important part
+    "ARG001",
+    
+    # ARG002: Unused method argument (self, cls)
+    # Reason: Test methods in classes may have fixtures/parameters not directly used
+    "ARG002",
+    
+    # PT004: Fixture does not return anything, add leading underscore
+    # Reason: We may have setup fixtures that don't need to return values
+    "PT004",
+    
+    # PT011: pytest.raises without match parameter
+    # Reason: Tests may only need to verify exception type, not message content
+    "PT011",
+    
+    # PT017: Found assertion on exception `exc` instead of `flaky` test
+    # Reason: Testing exception attributes directly is a valid pattern
+    "PT017",
+    
+    # W291: Trailing whitespace
+    # Reason: Test fixtures may contain intentional trailing whitespace (e.g., PDF content)
+    "W291",
+    
+    # SIM105: Use contextlib.suppress instead of try-except-pass
+    # Reason: Cleanup fixtures use explicit try-except-pass for clarity
+    "SIM105",
+    
+    # SIM117: Use single with statement with multiple managers
+    # Reason: Multiple context managers may be clearer in separate statements
+    "SIM117",
+    
+    # PLC0415: Import should be at top of file
+    # Reason: Local imports in test methods are common for test isolation
+    "PLC0415",
+    
+    # N806: Variable in function should be lowercase
+    # Reason: Test variables may intentionally match class/type names for clarity
+    "N806",
+    
+    # F841: Local variable assigned but never used
+    # Reason: Tests may capture return values for debugging without using them
+    "F841",
+    
+    # B017: assertRaises(Exception) should be more specific
+    # Reason: Some tests intentionally check for generic exceptions
+    "B017",
+    
+    # B905: zip() without explicit strict= parameter
+    # Reason: Test data iteration doesn't always need strict mode
+    "B905",
+    
+    # TRY002: Create your own exception class
+    # Reason: Tests raising standard exceptions is valid for testing error handling
+    "TRY002",
+    
+    # DTZ003: datetime.utcnow() is deprecated
+    # Reason: Test fixtures may use utcnow() for backward compatibility in mocks
+    "DTZ003",
+    
+    # PTH123: open() should use Path
+    # Reason: Tests may use open() for simplicity in mock scenarios
+    "PTH123",
+]
+
+# Configuration and conftest files have special patterns
+"conftest.py" = [
+    # ARG001: Unused function argument
+    # Reason: Conftest fixtures often define dependencies that may not be
+    # directly used but are needed for other fixtures or test setup
+    "ARG001",
+    
+    # W291: Trailing whitespace
+    # Reason: PDF fixture content requires trailing whitespace for valid xref format
+    "W291",
+    
+    # SIM105: Use contextlib.suppress instead of try-except-pass
+    # Reason: Cleanup fixtures use try-except-pass for explicit error handling
+    "SIM105",
+]
+
+# Migration files (if any exist in the future) should be lenient
+"migrations/*.py" = [
+    # All rules - migrations are auto-generated and shouldn't be linted
+    "ALL",
+]
+
+# Allow print statements in scripts directory for CLI tools
+"scripts/*.py" = [
+    # T201: `print` found
+    # Reason: Scripts are intended for CLI output, print is acceptable
+    "T201",
+]
+
+# =============================================================================
+# FLAKE8-QUOTES CONFIGURATION
+# =============================================================================
+
+[lint.flake8-quotes]
+# Use double quotes for strings (consistent with Black's default)
+inline-quotes = "double"
+
+# Use double quotes for docstrings (PEP 257 convention)
+docstring-quotes = "double"
+
+# =============================================================================
+# FLAKE8-PYTEST-STYLE CONFIGURATION
+# =============================================================================
+
+[lint.flake8-pytest-style]
+# Prefer @pytest.fixture over @pytest.fixture()
+fixture-parentheses = false
+
+# Prefer @pytest.mark.parametrize over @pytest.mark.parametrize()
+mark-parentheses = false
+
+# =============================================================================
+# PYLINT CONFIGURATION
+# =============================================================================
+
+[lint.pylint]
+# Maximum number of arguments for functions/methods
+# Set higher than default to accommodate dependency injection patterns
+max-args = 10
+
+# Maximum number of return statements in a function
+max-returns = 8
+
+# Maximum number of branches in a function
+max-branches = 15
+
+# Maximum number of statements in a function
+max-statements = 60
+
+# =============================================================================
+# MCCABE COMPLEXITY
+# =============================================================================
+
+[lint.mccabe]
+# Maximum cyclomatic complexity allowed
+# Default is 10, we allow slightly higher for complex service methods
+max-complexity = 12
+
+# =============================================================================
+# FLAKE8-TIDY-IMPORTS CONFIGURATION
+# =============================================================================
+
+[lint.flake8-tidy-imports]
+# Ban certain imports that should be avoided
+ban-relative-imports = "all"
+
+# =============================================================================
+# DOCUMENTATION
+# =============================================================================
+# 
+# This Ruff configuration enforces the following code quality standards:
+#
+# 1. **Line Length**: 100 characters, matching Black formatter
+# 2. **Python Version**: Python 3.11+ syntax and features enforced
+# 3. **Import Organization**: Grouped and sorted per isort conventions
+# 4. **Naming Conventions**: PEP 8 compliant names for classes, functions, variables
+# 5. **Bug Prevention**: Common bug patterns detected via flake8-bugbear
+# 6. **Modern Python**: Automatic suggestions to use modern Python features
+# 7. **Testing Standards**: pytest-style conventions enforced
+# 8. **Type Safety**: Encourages proper type annotations
+#
+# To check code: ruff check backend/
+# To auto-fix: ruff check backend/ --fix
+# To see all violations: ruff check backend/ --output-format=full
+#
+# For CI/CD integration, add to your pipeline:
+#   ruff check . --exit-non-zero-on-fix
+#
+# =============================================================================

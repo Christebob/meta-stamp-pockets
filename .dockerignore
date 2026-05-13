@@ -1,0 +1,58 @@
+# Version control
+.git/
+.gitignore
+
+# Environment and secrets
+.env
+.env.*
+*.env
+
+# Python development artifacts
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.mypy_cache/
+.ruff_cache/
+
+# Build and distribution
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Documentation and tests (optional - comment if needed in container)
+README.md
+docs/
+tests/
+**/*test*.py
+
+# Docker files (prevent recursion)
+Dockerfile*
+.dockerignore
+docker-compose*
+
+# Scripts and tooling
+scripts/
+*.sh
+
+# Poetry lock file (include if you want deterministic builds)
+# poetry.lock
+
+# Temporary files
+*.tmp
+*.temp
+*.log
