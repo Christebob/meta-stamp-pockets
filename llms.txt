@@ -1,0 +1,19 @@
+# Meta-Stamp Pockets
+
+> Attribution and settlement infrastructure for AI agent content access. HTTP 402 + MCP payment rail: agents pay per pull from creator-priced libraries ($1.00 default, creator-configurable), creators receive 85% automatically, and every access attempt lands in an immutable ledger.
+
+## Access
+
+- [MCP endpoint](https://metastampv3-production.up.railway.app/mcp): Model Context Protocol server — tools: search_pockets, pull_content, list_pockets. Bearer token required.
+- [API docs](https://metastampv3-production.up.railway.app/docs): registration and API reference
+- [Live demo](https://metastampv3-production.up.railway.app/demo): interactive demo
+
+## How it works
+
+- Paid pulls settle to the creator (85/15 split); refusals generate a timestamped denial record
+- Two registration paths: direct upload (perceptually fingerprinted, file discarded) and YouTube URL (OAuth-verified channel ownership)
+- Patent pending — two protection layers live today: multi-modal fingerprinting and the immutable access ledger
+
+## Contact
+
+- [Email](mailto:chriscoynetalent@gmail.com): creators and enterprise licensing
