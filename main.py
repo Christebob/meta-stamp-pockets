@@ -198,7 +198,7 @@ async def lifespan(_app: FastAPI):
                 logger.warning(f"[bg] Demo user seed failed: {exc}")
 
         # Always seed the AI agent test user (no env var gate needed)
-        # This user has no pockets, so pulling any Dhar Mann pocket triggers 402
+        # This user has no pockets, so pulling any priced pocket triggers 402
         try:
             from app.core.database import get_db_client  # noqa: PLC0415
             db_client = get_db_client()

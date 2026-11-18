@@ -283,9 +283,9 @@ class YouTubeIngestionService:
         Extract YouTube channel ID from various URL formats.
 
         Supports:
-        - https://youtube.com/@DharMann
+        - https://youtube.com/@ExampleChannel
         - https://youtube.com/channel/UCxxxxxx
-        - https://youtube.com/c/DharMann
+        - https://youtube.com/c/ExampleChannel
 
         For @handle and /c/ formats, we need to resolve to channel ID via API.
         """
