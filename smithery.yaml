@@ -1,9 +1,9 @@
 name: Meta-Stamp Pockets
 description: >
-  Attribution and settlement infrastructure for AI agent content access over
-  HTTP 402 and MCP. Agents pay per pull from creator-priced libraries — $1.00
-  default, configurable per asset. 85% of every pull goes to the creator
-  automatically, and every access attempt lands in an immutable ledger.
+  Licensing and receipts for AI agent access to creator content. Every visit
+  goes on the record: a licensed pull returns the content with a receipt, a
+  refused one returns a receipt that says no, and the owner's ledger gets the
+  same entry. The owner sets the price, per asset.
 
 startCommand:
   type: http
@@ -12,7 +12,7 @@ startCommand:
     properties:
       apiKey:
         type: string
-        description: Your Meta-Stamp Pockets API key (format: pkt_...)
+        description: "Your Meta-Stamp Pockets API key (format: pkt_...). Get one at https://app.meta-stamp.com/customer-signup"
     required: []
   exampleConfig:
     apiKey: ""

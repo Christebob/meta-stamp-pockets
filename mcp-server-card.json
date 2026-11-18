@@ -1,23 +1,22 @@
 {
   "name": "meta-stamp-pockets",
   "displayName": "Meta-Stamp Pockets",
-  "description": "The first commercial implementation of HTTP 402 Payment Required for creator content monetization. AI agents pay $0.0025 per content pull from paywalled creator libraries. Patent-pending micropayment infrastructure that automatically compensates creators when AI systems access their content.",
+  "description": "Licensing and receipts for AI agent access to creator content. Every visit goes on the record: a licensed pull returns the content with a receipt, a refused one returns a receipt that says no, and the owner's ledger gets the same entry. Patent pending.",
   "version": "1.0.0",
   "author": "Chris Coyne",
-  "homepage": "https://metastampv3-production.up.railway.app",
+  "homepage": "https://meta-stamp.com",
   "license": "proprietary",
   "categories": ["content", "payments", "creator-economy"],
-  "tags": ["http-402", "micropayments", "creator-economy", "ai-licensing", "content-paywall"],
+  "tags": ["http-402", "content-licensing", "creator-economy", "ai-licensing", "receipts"],
   "transport": "http",
   "endpoint": "https://metastampv3-production.up.railway.app/mcp/",
   "auth": {
     "type": "bearer",
-    "description": "Bearer token required. Register at https://metastampv3-production.up.railway.app/docs"
+    "description": "API key required. Get one at https://app.meta-stamp.com/customer-signup"
   },
   "pricing": {
     "model": "per-call",
-    "amount": 0.0025,
     "currency": "USD",
-    "description": "$0.0025 per content pull — 85% to creator, 15% to Pockets"
+    "description": "The owner sets the price, per asset."
   }
 }
