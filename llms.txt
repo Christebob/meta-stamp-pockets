@@ -1,19 +1,18 @@
 # Meta-Stamp Pockets
 
-> Attribution and settlement infrastructure for AI agent content access. HTTP 402 + MCP payment rail: agents pay per pull from creator-priced libraries ($1.00 default, creator-configurable), creators receive 85% automatically, and every access attempt lands in an immutable ledger.
+> Licensing and receipts for AI agent access to creator content. When an agent comes to Meta-Stamp for a piece of content, the visit goes on the record: a licensed pull returns the content with a receipt, a refused one returns a receipt that says no, and the owner's ledger gets the same entry. One visit, two receipts, one independent record.
 
 ## Access
 
-- [MCP endpoint](https://metastampv3-production.up.railway.app/mcp): Model Context Protocol server — tools: search_pockets, pull_content, list_pockets. Bearer token required.
-- [API docs](https://metastampv3-production.up.railway.app/docs): registration and API reference
-- [Live demo](https://metastampv3-production.up.railway.app/demo): interactive demo
+- [MCP endpoint](https://metastampv3-production.up.railway.app/mcp): Model Context Protocol server. Tools: search_pockets, list_pockets, pull_content. API key required.
+- [Get an API key](https://app.meta-stamp.com/customer-signup): sign-up for agents and developers
 
 ## How it works
 
-- Paid pulls settle to the creator (85/15 split); refusals generate a timestamped denial record
-- Two registration paths: direct upload (perceptually fingerprinted, file discarded) and YouTube URL (OAuth-verified channel ownership)
-- Patent pending — two protection layers live today: multi-modal fingerprinting and the immutable access ledger
+- The owner sets the price, per asset.
+- A paid pull licenses use in generation, retrieval and inference. Training is not included; it takes a separate license.
+- Every visit, paid or refused, leaves a receipt for the agent and an entry in the owner's ledger.
 
 ## Contact
 
-- [Email](mailto:chriscoynetalent@gmail.com): creators and enterprise licensing
+- [Email](mailto:chris@meta-stamp.com): catalog owners, creators and licensing
