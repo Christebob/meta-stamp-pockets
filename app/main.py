@@ -355,8 +355,8 @@ async def mcp_nested_server_card() -> dict:
     return {
         "name": "meta-stamp-pockets",
         "description": (
-            "Licensed creator content for AI agents. Tiered per-pull pricing "
-            "from $0.001 to $0.25 based on content type."
+            "Licensing and receipts for AI agent access to creator content. "
+            "The owner sets the price, per asset."
         ),
         "url": "https://metastampv3-production.up.railway.app/mcp",
         "version": "1.0.0",

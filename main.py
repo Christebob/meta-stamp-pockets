@@ -506,7 +506,7 @@ async def mcp_server_card() -> dict[str, Any]:
     return {
         "name": "meta-stamp-pockets",
         "displayName": "Meta-Stamp Pockets",
-        "description": "The first commercial implementation of HTTP 402 Payment Required for creator content monetization. AI agents pay $0.0025 per content pull. Patent-pending micropayment infrastructure.",
+        "description": "Licensing and receipts for AI agent access to creator content. The owner sets the price, per asset.",
         "version": "1.0.0",
         "transport": "http",
         "endpoint": "https://metastampv3-production.up.railway.app/mcp/",
@@ -521,8 +521,8 @@ async def mcp_nested_server_card() -> dict[str, Any]:
     return {
         "name": "meta-stamp-pockets",
         "description": (
-            "Licensed creator content for AI agents. Tiered per-pull pricing "
-            "from $0.001 to $0.25 based on content type."
+            "Licensing and receipts for AI agent access to creator content. "
+            "The owner sets the price, per asset."
         ),
         "url": "https://metastampv3-production.up.railway.app/mcp",
         "version": "1.0.0",

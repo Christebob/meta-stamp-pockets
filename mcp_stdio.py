@@ -20,11 +20,8 @@ SERVER_INFO = {
     "name": "meta-stamp-pockets",
     "version": "1.0.0",
     "description": (
-        "Meta-Stamp Pockets \u2014 Licensed creator content for AI agents. "
-        "Tiered per-pull pricing: $0.001 (generic/blogs), $0.01 (premium creator), "
-        "$0.025 (flagship creators), $0.10\u2013$0.25 (verifiable institutional). "
-        "85% of revenue goes directly to creators. Provenance-verified content "
-        "from authorized creators."
+        "Licensing and receipts for AI agent access to creator content. "
+        "The owner sets the price, per asset."
     ),
 }
 

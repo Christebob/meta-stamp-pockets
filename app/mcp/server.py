@@ -89,10 +89,11 @@ MCP_TOOL_MANIFEST = {
             "description": (
                 "Pull licensed creator content from a specific pocket by ID. Use this tool "
                 "when an AI agent needs to retrieve verified, provenance-tracked content for "
-                "generation, RAG, or training purposes. Do NOT use for browsing or discovery "
+                "generation, RAG, and inference use. Training use requires a separate "
+                "training license. Do NOT use for browsing or discovery "
                 "\u2014 use search_pockets or list_pockets instead. Requires a valid Bearer token "
                 "for authentication; unauthenticated requests return HTTP 401. Successful "
-                "pulls trigger a metered charge ($0.001\u2013$0.25 depending on content tier) "
+                "pulls trigger a metered charge at the pocket's own price, set by its owner, "
                 "and the transaction is logged for creator royalty distribution. The "
                 "pocket_id parameter is a 24-character hex string identifying the specific "
                 "content pocket to pull from. Returns the full content payload with "
@@ -204,11 +205,8 @@ MCP_TOOL_MANIFEST = {
 
 
 _NEW_DESCRIPTION = (
-    "Meta-Stamp Pockets \u2014 Licensed creator content for AI agents. "
-    "Tiered per-pull pricing: $0.001 (generic/blogs), $0.01 (premium creator \u2014 YouTube, Substack), "
-    "$0.025 (flagship creators), $0.10\u2013$0.25 (verifiable institutional \u2014 news, legal, scientific). "
-    "Annual enterprise licensing also available. 85% of revenue goes directly to creators. "
-    "Provenance-verified content from authorized creators."
+    "Licensing and receipts for AI agent access to creator content. "
+    "The owner sets the price, per asset."
 )
 
 _SERVER_INFO = {
@@ -369,7 +367,7 @@ async def get_capabilities() -> JSONResponse:
         "protocol_version": "2024-11-05",
         "tools": MCP_TOOL_MANIFEST["tools"],
         "terms_url": "/api/v1/agreements/terms",
-        "pricing": {"model": "tiered-per-pull", "tiers": [{"type": "generic", "amount": 0.001}, {"type": "premium_creator", "amount": 0.01}, {"type": "flagship", "amount": 0.025}, {"type": "institutional", "amount": 0.10}], "currency": "USD", "enterprise": "annual license available"},
+        "pricing": {"model": "per-pull", "currency": "USD", "description": "The owner sets the price, per asset.", "enterprise": "annual license available"},
     })
 
 
